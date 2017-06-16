@@ -1,0 +1,54 @@
+<style>
+  :host /deep/ .ui-datalist-content.ui-widget-content {
+    border: none;
+  }
+
+  :host /deep/ .ui-panel-titlebar {
+    display: none;
+  }
+
+  :host /deep/ .ui-panel {
+    margin: 5px;
+  }
+
+  input {
+    width: 70%;
+  }
+
+  #completed {
+    padding-right: 2px;
+  }
+
+  #completed /deep/ .ui-chkbox {
+    margin-top: 5px;
+  }
+</style>
+<div>
+  <p-dataList [value]="tasks">
+    <header>
+      <p-toolbar>
+        <div class="ui-toolbar-group-right">
+          <button pButton type="button" title="Add a task" icon="fa-plus" iconPos="left" (click)="add(task)"></button>
+          <button pButton type="button" title="Refresh task list" icon="fa-refresh" iconPos="left"
+                  (click)="refreshTasks(true)"></button>
+        </div>
+      </p-toolbar>
+    </header>
+    <template let-task>
+      <p-panel>
+        <p-toolbar id="task">
+          <div class="ui-toolbar-group-left">
+            <p-checkbox id="completed" [(ngModel)]="task.completed" binary="true"></p-checkbox>
+          </div>
+          <input id="in" type="text" placeholder="What do you want to do today? " pInputText [(ngModel)]="task.name">
+          <div class="ui-toolbar-group-right">
+            <button id="save" pButton type="button" title="Save" icon="fa-save" iconPos="left"
+                    (click)="save($index, task)"></button>
+            <button id="delete" pButton type="button" title="Delete" icon="fa-trash-o" iconPos="left"
+                    (click)="remove($index, task)"></button>
+          </div>
+        </p-toolbar>
+      </p-panel>
+    </template>
+  </p-dataList>
+  <p-growl [value]="messages"></p-growl>
